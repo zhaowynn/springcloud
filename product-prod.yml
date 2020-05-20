@@ -57,4 +57,4 @@ sleuth:
     probability: 1.0 #采样的百分比
     
 environment-configuration:
-  branch: prod
+  branch: prod test
