@@ -9,7 +9,7 @@ logging:
     org.springframework.cloud.sleuth: DEBUG
 
 vmware-workstation:
-  ip: 192.168.52.130
+  ip: 192.168.52.131
   mysql:
     username: root
     password: 123456
