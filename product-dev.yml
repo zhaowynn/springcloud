@@ -1,0 +1,57 @@
+server:
+  port: 9001
+
+logging:
+  level:
+    com.*: DEBUG
+    root: INFO
+    org.springframework.web.servlet.DispatcherServlet: DEBUG
+    org.springframework.cloud.sleuth: DEBUG
+
+vmware-workstation:
+  ip: 192.168.52.130
+  mysql:
+    username: root
+    password: 123456
+
+spring:
+  application:
+    name: service-product
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://${vmware-workstation.ip}:3306/tools?useUnicode=true&characterEncoding=utf8
+    username: ${vmware-workstation.mysql.username}
+    password: ${vmware-workstation.mysql.password}
+  jpa:
+    database: MySQL
+    show-sql: true
+    open-in-view: true
+
+  #配置中心
+  cloud:
+    config:
+      name: product #应用名称,需要对应git中配置文件名称的前半部分
+      profile: pro #开发环境
+      label: master #git中的分支
+      #uri: http://localhost:10000 #config-server的请求地址
+      #通过注册中心获取config-server配置
+      discovery:
+        enabled: true #开启服务发现
+        service-id: config-server
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:9000/eureka/
+  instance:
+    hostname: 127.0.0.1
+#    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+
+zipkin:
+  base-url: http://127.0.0.1:9411/ #zipkin server的请求地址
+  sender:
+    type: web #请求方式,默认以http的方式向zipkin server发送追踪数据
+sleuth:
+  sampler:
+    probability: 1.0 #采样的百分比
