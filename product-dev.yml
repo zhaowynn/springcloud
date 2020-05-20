@@ -56,5 +56,11 @@ sleuth:
   sampler:
     probability: 1.0 #采样的百分比
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh
+
 environment-configuration:
   branch: dev
